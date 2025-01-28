@@ -1,38 +1,17 @@
 services:
-  # app:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "5000:5000"
-  #   environment:
-  #     - PYTHONUNBUFFERED=1
-  #   depends_on:
-  #     - prometheus
-  #   networks:
-  #     - metrics
-  
+
   prometheus:
     image: prom/prometheus
-    ports:
-      - "9090:9090"
+    container_name: prometheus
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml  # Mapeia o arquivo de configuração
+    ports:
+      - "9090:9090"  # Expor a porta do Prometheus para o host
+    restart: always
     networks:
       - metrics
-  
-  # grafana:
-  #   image: grafana/grafana
-  #   container_name: grafana
-  #   hostname: grafana
-  #   environment:
-  #     - GF_SECURITY_ADMIN_PASSWORD=admin
-  #   restart: unless-stopped
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - metrics
-
+    # environment:
+    #   - PROMETHEUS_CONFIG=/etc/prometheus/prometheus.yml
 networks:
   metrics:
     driver: bridge

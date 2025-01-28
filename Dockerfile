@@ -8,4 +8,4 @@ COPY prometheus.yml /etc/prometheus/prometheus.yml
 EXPOSE 9090
 
 # Comando para rodar o Prometheus
-CMD [ "prometheus", "--config.file=/etc/prometheus/prometheus.yml" ]
+CMD [ "--config.file=/etc/prometheus/prometheus.yml" ]
